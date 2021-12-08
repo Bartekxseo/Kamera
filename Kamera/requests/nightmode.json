@@ -1,0 +1,1 @@
+{"inputs":[{"defaultName":"Digital Input 1","name":"Digital Input 1","idleState":"0","currentState":"Closed"}],"outputs":[{"defaultName":"Digital Output 1","name":"Digital Output 1","idleState":"0","enableIrCutOut":false,"duration":"1000"}]}
