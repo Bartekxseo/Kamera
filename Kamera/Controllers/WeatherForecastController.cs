@@ -13,7 +13,6 @@ namespace Kamera.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private string rootPath;
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -21,17 +20,30 @@ namespace Kamera.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         readonly IHostingEnvironment environment;
+        private string _rootPath;
+        private CameraModeChange cameraModeChanger;
         public WeatherForecastController(ILogger<WeatherForecastController> logger,IHostingEnvironment environment)
         {
             _logger = logger;
             this.environment = environment;
+            _rootPath = environment.ContentRootPath;
+            cameraModeChanger = new CameraModeChange(_rootPath);
+            cameraModeChanger.fillVariables("user", "user", "http://192.168.1.25/");
         }
-        [HttpGet("modeChange")]
-        public void modeChange()
+        [HttpGet("manualModeChange")]
+        public void manualModeChange()
         {
-            rootPath = environment.ContentRootPath;
-            var modechange = new CameraModeChange(rootPath,"user","user", "http://192.168.1.25/");
-            modechange.changeMode().GetAwaiter().GetResult();
+            cameraModeChanger.changeMode().GetAwaiter().GetResult();
+        }
+        [HttpGet("putIntoNightMode")]
+        public void putIntoNightMode()
+        {
+            cameraModeChanger.putIntoNightMode().GetAwaiter().GetResult();
+        }
+        [HttpGet("putIntoDayMode")]
+        public void putIntoDayMode()
+        {
+            cameraModeChanger.putIntoDayMode().GetAwaiter().GetResult();
         }
         [HttpGet("Get")] 
         public IEnumerable<WeatherForecast> Get()

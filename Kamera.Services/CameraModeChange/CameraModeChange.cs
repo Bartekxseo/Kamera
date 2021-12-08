@@ -22,32 +22,49 @@ namespace Camera.Services.CameraModeChange
         private string _password;
         private string _path;
         private string _host;
-        public CameraModeChange(string rootPath,string user,string password,string host)
+        private CameraClient cameraClient;
+        public static string _modeChangeEndPoint = "/cgi-x/digitalio";
+        public static string _nightModePath = "/requests/nightmode.json";
+        public static string _dayModePath = "/requests/daymode.json";
+        public CameraModeChange(string rootPath)
         {
             _path = rootPath;
+        }
+        public void fillVariables(string user, string password, string host)
+        {
             _user = user;
             _password = password;
             _host = host;
+            cameraClient = new CameraClient(_host, _user, _password);
         }
         public async Task changeMode()
         {
-            var cameraClient = new CameraClient(_host, _user, _password);
-            var response = await cameraClient.GetFromCamera("/cgi-x/digitalio");
+            var response = await cameraClient.GetFromCamera(_modeChangeEndPoint);
             dynamic Json = JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
             var dayTimeMode = Json["inputs"][0]["idleState"];
             string body = "";
             if (dayTimeMode.Value=="0")
             {
-                body = File.ReadAllText(_path+"/requests/daymode.json");
+                body = File.ReadAllText(_path + _dayModePath);
             }
             else
             {
-                body = File.ReadAllText(_path + "/requests/nightmode.json");
+                body = File.ReadAllText(_path + _nightModePath);
             }
 
-            await cameraClient.PostToCamera("/cgi-x/digitalio", body);
+            await cameraClient.PostToCamera(_modeChangeEndPoint, body);
             
             return;
+        }
+        public async Task putIntoNightMode()
+        {
+            string body = File.ReadAllText(_path + _nightModePath);
+            await cameraClient.PostToCamera(_modeChangeEndPoint, body);
+        }
+        public async Task putIntoDayMode()
+        {
+            string body = File.ReadAllText(_path + _dayModePath);
+            await cameraClient.PostToCamera(_modeChangeEndPoint, body);
         }
     }
 }
