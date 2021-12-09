@@ -11,5 +11,6 @@ namespace Camera.Services.Models
         public string password { get; set; }
         public string nightModeStart { get; set; }
         public string nightModeEnd { get; set; }
+
     }
 }
