@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Camera.Services.Models
 {
-    class CredentialsModel
+    public class CredentialsModel
     {
         public string ipAdress { get; set; }
         public string username { get; set; }

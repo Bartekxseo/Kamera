@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Camera.Services.CameraLogin;
 
-namespace Kamera.Controllers
+namespace Camera.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -20,7 +20,7 @@ namespace Kamera.Controllers
         private string _rootPath;
         private CameraModeChange cameraModeChanger;
         private CameraLoginService cameraLoginService;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger,IHostingEnvironment environment)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IHostingEnvironment environment)
         {
             _logger = logger;
             this.environment = environment;
@@ -54,7 +54,7 @@ namespace Kamera.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("", ex);
-                throw new Exception("",ex);
+                throw new Exception("", ex);
             }
         }
     }

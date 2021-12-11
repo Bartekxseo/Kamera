@@ -1,0 +1,85 @@
+@use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+
+@include mat.core();
+
+$mat-camera-panel: (
+  50 : #fbeae9,
+  100 : #f5cbc8,
+  200 : #efa9a3,
+  300 : #e8867e,
+  400 : #e36c63,
+  500 : #de5247,
+  600 : #da4b40,
+  700 : #d54137,
+  800 : #d1382f,
+  900 : #c82820,
+  A100 : #ffffff,
+  A200 : #ffd0ce,
+  A400 : #ff9f9b,
+  A700 : #ff8681,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$mat-camera-panel-accent: (
+  50 : #fcf0f0,
+  100 : #f8dbd8,
+  200 : #f4c3bf,
+  300 : #efaaa5,
+  400 : #eb9891,
+  500 : #e8867e,
+  600 : #e57e76,
+  700 : #e2736b,
+  800 : #de6961,
+  900 : #d8564e,
+  A100 : #ffffff,
+  A200 : #ffffff,
+  A400 : #ffd1cf,
+  A700 : #ffb9b5,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #000000,
+      600 : #000000,
+      700 : #000000,
+      800 : #000000,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$camera-terminal-panel-primary: mat.define-palette($mat-camera-panel);
+$camera-terminal-panel-accent: mat.define-palette($mat-camera-panel-accent);
+
+$camera-terminal-panel-warn: mat.define-palette(mat.$red-palette);
+
+$camera-terminal-panel-theme: mat.define-dark-theme((
+  color: (
+    primary: $camera-terminal-panel-primary,
+    accent: $camera-terminal-panel-accent,
+    warn: $camera-terminal-panel-warn
+  )
+));
+
+@include mat.all-component-themes($camera-terminal-panel-theme);
