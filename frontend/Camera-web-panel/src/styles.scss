@@ -24,11 +24,11 @@ $mat-camera-panel: (
       200 : #000000,
       300 : #000000,
       400 : #000000,
-      500 : #ffffff,
-      600 : #ffffff,
-      700 : #ffffff,
-      800 : #ffffff,
-      900 : #ffffff,
+      500 : #000000,
+      600 : #000000,
+      700 : #000000,
+      800 : #000000,
+      900 : #000000,
       A100 : #000000,
       A200 : #000000,
       A400 : #000000,
@@ -61,7 +61,7 @@ $mat-camera-panel-accent: (
       600 : #000000,
       700 : #000000,
       800 : #000000,
-      900 : #ffffff,
+      900 : #000000,
       A100 : #000000,
       A200 : #000000,
       A400 : #000000,
@@ -83,3 +83,42 @@ $camera-terminal-panel-theme: mat.define-dark-theme((
 ));
 
 @include mat.all-component-themes($camera-terminal-panel-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.roboto-mono {
+  font-family: 'Roboto Mono';
+}
+
+.mat-divider {
+  border-top-width: 5px !important;
+  border-right-width: 5px !important;
+}
+
+.cdk-overlay-pane {
+  max-width: 100vw !important;
+}
+
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 1600px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1366px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1280px) {
+  html {
+    font-size: 10px;
+  }
+}

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,6 +35,7 @@ import { SettingsComponent } from './areas/settings/settings.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MatSelectModule,
     MatFormFieldModule,
@@ -53,6 +56,7 @@ import { SettingsComponent } from './areas/settings/settings.component';
     MatProgressSpinnerModule,
     MatMenuModule,
     MatButtonToggleModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

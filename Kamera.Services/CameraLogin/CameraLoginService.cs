@@ -1,6 +1,8 @@
 ﻿using Camera.Services.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Camera.Services.CameraLogin
@@ -15,7 +17,33 @@ namespace Camera.Services.CameraLogin
         }
         public CredentialsModel findCredentials(string ip)
         {
+            var JsonFile = File.ReadAllText(_rootPath + "/credentials/Credentials.json");
+            dynamic deserializedJson = JsonConvert.DeserializeObject(JsonFile);
             return new CredentialsModel();
+        }
+        public CredentialsModel addNewCredentials(string ip,string user, string password)
+        {
+            var credentials = new CredentialsModel
+            {
+                ipAdress = ip,
+                username = user,
+                password = password,
+                nightModeStart = "",
+                nightModeEnd = ""
+            };
+            var JsonFile = File.ReadAllText(_rootPath + "/credentials/Credentials.json");
+            var JsonList = JsonConvert.DeserializeObject<List<CredentialsModel>>(JsonFile);
+            if(JsonList==null)
+            {
+                JsonList = new List<CredentialsModel>();
+            }
+            JsonList.Add(credentials);
+            var newJson = JsonConvert.SerializeObject(JsonList);
+            File.WriteAllText(_rootPath + "/credentials/Credentials.json", newJson);
+            return credentials;
+        }
+        public void putModeChangeHours(string Start,string End)
+        {
         }
     }
 }

@@ -4,8 +4,9 @@ import { LoginComponent } from './areas/login/login.component';
 import { SettingsComponent } from './areas/settings/settings.component';
 
 const routes: Routes = [
-  {path:'', component:LoginComponent},
-  {path:'settings',component:SettingsComponent}
+  {path:'', redirectTo:'/login',pathMatch:'full'},
+  {path:'settings/:id',component:SettingsComponent},
+  {path:'login',component:LoginComponent}
 ];
 
 @NgModule({

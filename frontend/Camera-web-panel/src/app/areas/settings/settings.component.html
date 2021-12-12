@@ -1,1 +1,34 @@
-<p>settings works!</p>
+<div style="display: block; text-align: center; width: 100%; padding-top: 5vw;">
+  <div style="padding: 10px;">
+  <button mat-raised-button (click)="changeMode()" color="primary">
+    Click!
+  </button>
+</div>
+<mat-form-field appearance="fill" style="padding: 5px;">
+  <mat-label>Podaj godzinę włączenia trybu nocnego</mat-label>
+  <input matInput #input type="text" placeholder="10:10" style="color:white" [(ngModel)]="start" required="true">
+</mat-form-field>
+<mat-form-field appearance="fill" style="padding: 5px;">
+  <mat-label>Podaj godzine wyłączenia trybu nocnego</mat-label>
+  <input matInput #input type="text" placeholder="10:10" style="color:white" [(ngModel)]="stop" required="true">
+</mat-form-field>
+<div style="padding: 10px;">
+  <button mat-raised-button (click)="saveModeChangeHours()" color="primary">
+    Save!
+  </button>
+</div>
+<mat-form-field appearance="fill" style="padding: 5px;">
+  <mat-label>Podaj użytkownika</mat-label>
+  <input matInput #input type="text" placeholder="Np. user" style="color:white" [(ngModel)]="user" required="true">
+</mat-form-field>
+<mat-form-field appearance="fill" style="padding: 5px;">
+  <mat-label>Podaj hasło</mat-label>
+  <input matInput #input type="text" placeholder="Np. P@ssword" style="color:white" [(ngModel)]="password" required="true">
+</mat-form-field>
+<div style="padding: 10px;">
+  <button mat-raised-button (click)="saveModeChangeHours()" color="primary">
+    Save!
+  </button>
+</div>
+</div>
+

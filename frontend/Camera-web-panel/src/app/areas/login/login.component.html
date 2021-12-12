@@ -1,1 +1,26 @@
-<p>login works!</p>
+<div style="display: block; text-align: center; width: 100%; padding-top: 5vw;">
+  <mat-form-field appearance="fill" hintLabel="Maksymalnie 15 znaków" >
+    <mat-label>Wpisz IP kamery</mat-label>
+    <input matInput [disabled]="needUser" #input type="text" placeholder="XXX.XXX.XXX.XXX" maxlength="15" style="color:white" [(ngModel)]="ip" required="true">
+    <mat-hint align="end">{{input.value?.length || 0}}/15</mat-hint>
+  </mat-form-field>
+  <div style="padding: 10px;">
+  <button mat-raised-button (click)="subbmit()" color="primary" *ngIf="!needUser">
+    Click!
+  </button>
+</div>
+<mat-form-field appearance="fill" *ngIf="needUser">
+  <mat-label>Podaj użytkownika</mat-label>
+  <input matInput #input type="text" placeholder="Np. user" style="color:white" [(ngModel)]="user" required="true">
+</mat-form-field>
+<mat-form-field appearance="fill" *ngIf="needUser">
+  <mat-label>Podaj hasło</mat-label>
+  <input matInput #input type="text" placeholder="Np. P@ssword" style="color:white" [(ngModel)]="password" required="true">
+</mat-form-field>
+<div style="padding: 10px;">
+  <button mat-raised-button (click)="subbmit()" color="primary" *ngIf="needUser">
+    Click!
+  </button>
+</div>
+</div>
+

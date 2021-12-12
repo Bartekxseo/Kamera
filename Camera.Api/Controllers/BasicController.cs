@@ -13,20 +13,19 @@ namespace Camera.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class BasicController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<BasicController> _logger;
         readonly IHostingEnvironment environment;
         private string _rootPath;
         private CameraModeChange cameraModeChanger;
         private CameraLoginService cameraLoginService;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IHostingEnvironment environment)
+        public BasicController(ILogger<BasicController> logger, IHostingEnvironment environment)
         {
             _logger = logger;
             this.environment = environment;
             _rootPath = environment.ContentRootPath;
             cameraModeChanger = new CameraModeChange(_rootPath);
-            cameraModeChanger.fillVariables("user", "user", "http://192.168.1.25/");
             cameraLoginService = new CameraLoginService(_rootPath);
         }
         [HttpGet("manualModeChange")]
@@ -49,12 +48,31 @@ namespace Camera.Api.Controllers
         {
             try
             {
-                return cameraLoginService.findCredentials(ip);
+                var credentials = cameraLoginService.findCredentials(ip);
+                if(credentials.password !="" && credentials.username != "")
+                {
+                    cameraModeChanger.fillVariables(credentials.username, credentials.password, ip);
+                }
+                return credentials;
             }
             catch (Exception ex)
             {
                 _logger.LogError("", ex);
                 throw new Exception("", ex);
+            }
+        }
+        [HttpPut("addNewCredentials")]
+        public CredentialsModel addNewCredentials(string ip,string user,string password)
+        {
+            try
+            {
+                cameraModeChanger.fillVariables(user, password, ip);
+                return cameraLoginService.addNewCredentials(ip, user, password);
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }
