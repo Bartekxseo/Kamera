@@ -5,7 +5,7 @@ import { SettingsComponent } from './areas/settings/settings.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/login',pathMatch:'full'},
-  {path:'settings',component:SettingsComponent},
+  {path:'settings/:id',component:SettingsComponent},
   {path:'login',component:LoginComponent}
 ];
 

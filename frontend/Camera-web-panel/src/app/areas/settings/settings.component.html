@@ -1,5 +1,7 @@
 <div style="display: block; text-align: center; width: 100%; padding-top: 5vw;">
   <div style="padding: 10px;">
+    <div style="color:white" *ngIf="!currentlyOn">Aktualny Tryb:Dzienny</div>
+    <div style="color:white" *ngIf="currentlyOn">Aktualny Tryb:Nocny</div>
   <button mat-raised-button (click)="changeMode()" color="primary">
     Click!
   </button>
@@ -26,7 +28,7 @@
   <input matInput #input type="text" placeholder="Np. P@ssword" style="color:white" [(ngModel)]="password" required="true">
 </mat-form-field>
 <div style="padding: 10px;">
-  <button mat-raised-button (click)="saveModeChangeHours()" color="primary">
+  <button mat-raised-button (click)="saveUseraAndPass()" color="primary">
     Save!
   </button>
 </div>

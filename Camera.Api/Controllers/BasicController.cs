@@ -28,32 +28,55 @@ namespace Camera.Api.Controllers
             cameraModeChanger = new CameraModeChange(_rootPath);
             cameraLoginService = new CameraLoginService(_rootPath);
         }
-        [HttpGet("manualModeChange")]
-        public void manualModeChange()
+        [HttpGet("updateTime")]
+        public void updateTime(string time)
         {
-            cameraModeChanger.changeMode().GetAwaiter().GetResult();
+            try
+            {
+                time = time.Split(' ').First();
+                time = time.Remove(time.Length - 3,3);
+                cameraModeChanger.updateTime(time).GetAwaiter().GetResult();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
+                throw new Exception("", ex);
+            }
+        }
+        [HttpGet("manualModeChange")]
+        public void manualModeChange(int id)
+        {
+            cameraModeChanger.changeMode(id).GetAwaiter().GetResult();
         }
         [HttpGet("putIntoNightMode")]
-        public void putIntoNightMode()
+        public void putIntoNightMode(int id)
         {
-            cameraModeChanger.putIntoNightMode().GetAwaiter().GetResult();
+            cameraModeChanger.putIntoNightMode(id).GetAwaiter().GetResult();
         }
         [HttpGet("putIntoDayMode")]
-        public void putIntoDayMode()
+        public void putIntoDayMode(int id)
         {
-            cameraModeChanger.putIntoDayMode().GetAwaiter().GetResult();
+            cameraModeChanger.putIntoDayMode(id).GetAwaiter().GetResult();
+        }
+        [HttpGet("getCurrentMode")]
+        public bool getCurrentMode(int id)
+        {
+            try
+            {
+                return cameraModeChanger.getMode(id).GetAwaiter().GetResult();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
+                throw new Exception("", ex);
+            }
         }
         [HttpPost("findCredentialsByIp")]
         public CredentialsModel findCredentialsByIp(string ip)
         {
             try
             {
-                var credentials = cameraLoginService.findCredentials(ip);
-                if(credentials.password !="" && credentials.username != "")
-                {
-                    cameraModeChanger.fillVariables(credentials.username, credentials.password, ip);
-                }
-                return credentials;
+                return cameraLoginService.findCredentials(ip);
             }
             catch (Exception ex)
             {
@@ -66,13 +89,51 @@ namespace Camera.Api.Controllers
         {
             try
             {
-                cameraModeChanger.fillVariables(credentials.username, credentials.password, credentials.ipAdress);
                 return cameraLoginService.addNewCredentials(credentials.ipAdress, credentials.username, credentials.password);
             }
             catch (Exception)
             {
 
                 throw;
+            }
+        }
+        [HttpPost("findCredentialsById")]
+        public CredentialsModel findCredentialsById(int id)
+        {
+            try
+            {
+                return cameraLoginService.getCredentialsById(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
+                throw new Exception("", ex);
+            }
+        }
+        [HttpPost("updateHours")]
+        public void updateHours(CredentialsModel credentials)
+        {
+            try
+            {
+                cameraLoginService.putModeChangeHours(credentials);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
+                throw new Exception("", ex);
+            }
+        }
+        [HttpPost("updateCredentials")]
+        public void updateCredentials(CredentialsModel credentials)
+        {
+            try
+            {
+                cameraLoginService.updateCredentials(credentials.id, credentials.username, credentials.password);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
+                throw new Exception("", ex);
             }
         }
     }

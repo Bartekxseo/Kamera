@@ -6,6 +6,7 @@ namespace Camera.Services.Models
 {
     public class CredentialsModel
     {
+        public int id { get; set; }
         public string ipAdress { get; set; }
         public string username { get; set; } = "";
         public string password { get; set; } = "";
