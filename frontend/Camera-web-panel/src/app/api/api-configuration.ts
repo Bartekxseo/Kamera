@@ -1,9 +1,8 @@
 /* tslint:disable */
-/* eslint-disable */
 import { Injectable } from '@angular/core';
 
 /**
- * Global configuration
+ * Global configuration for Api services
  */
 @Injectable({
   providedIn: 'root',
@@ -12,9 +11,6 @@ export class ApiConfiguration {
   rootUrl: string = '';
 }
 
-/**
- * Parameters for `ApiModule.forRoot()`
- */
-export interface ApiConfigurationParams {
+export interface ApiConfigurationInterface {
   rootUrl?: string;
 }

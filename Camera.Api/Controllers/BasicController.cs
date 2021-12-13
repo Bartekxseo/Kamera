@@ -43,7 +43,7 @@ namespace Camera.Api.Controllers
         {
             cameraModeChanger.putIntoDayMode().GetAwaiter().GetResult();
         }
-        [HttpGet("findCredentialsByIp")]
+        [HttpPost("findCredentialsByIp")]
         public CredentialsModel findCredentialsByIp(string ip)
         {
             try
@@ -61,13 +61,13 @@ namespace Camera.Api.Controllers
                 throw new Exception("", ex);
             }
         }
-        [HttpPut("addNewCredentials")]
-        public CredentialsModel addNewCredentials(string ip,string user,string password)
+        [HttpPost("addNewCredentials")]
+        public CredentialsModel addNewCredentials(CredentialsModel credentials)
         {
             try
             {
-                cameraModeChanger.fillVariables(user, password, ip);
-                return cameraLoginService.addNewCredentials(ip, user, password);
+                cameraModeChanger.fillVariables(credentials.username, credentials.password, credentials.ipAdress);
+                return cameraLoginService.addNewCredentials(credentials.ipAdress, credentials.username, credentials.password);
             }
             catch (Exception)
             {

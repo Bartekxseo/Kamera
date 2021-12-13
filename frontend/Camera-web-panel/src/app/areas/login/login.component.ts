@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   }
   subbmit()
   {
-    let params =  {ip: this.ip}
-    this.basicService.basicFindCredentialsByIpGet$Json(params).subscribe(x=> {
+
+    this.basicService.postBasicFindCredentialsByIp(this.ip).subscribe(x=> {
       if(x.password!="" && x.username!="")
       {
 
@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit {
 
   addNewIp()
   {
-    let params = {ip: this.ip,username: this.user,password:this.password}
-    this.basicService.basicAddNewCredentialsPut$Json(params)
+    let params:CredentialsModel = {ipAdress: this.ip,username: this.user,password:this.password}
+    console.log(params)
+    this.basicService.postBasicAddNewCredentials(params).subscribe()
   }
 }
-

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Text;
 
@@ -18,8 +19,9 @@ namespace Camera.Services.CameraLogin
         public CredentialsModel findCredentials(string ip)
         {
             var JsonFile = File.ReadAllText(_rootPath + "/credentials/Credentials.json");
-            dynamic deserializedJson = JsonConvert.DeserializeObject(JsonFile);
-            return new CredentialsModel();
+            var JsonList = JsonConvert.DeserializeObject<List<CredentialsModel>>(JsonFile);
+            var Credentials = JsonList.Where(x => x.ipAdress == ip).FirstOrDefault() ?? new CredentialsModel();
+            return Credentials;
         }
         public CredentialsModel addNewCredentials(string ip,string user, string password)
         {
@@ -44,6 +46,7 @@ namespace Camera.Services.CameraLogin
         }
         public void putModeChangeHours(string Start,string End)
         {
+
         }
     }
 }

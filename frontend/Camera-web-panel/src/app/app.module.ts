@@ -26,6 +26,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './areas/login/login.component';
 import { SettingsComponent } from './areas/settings/settings.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiModule } from './api/api.module';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { SettingsComponent } from './areas/settings/settings.component';
     MatMenuModule,
     MatButtonToggleModule,
     MatInputModule,
+    HttpClientModule,
+    ApiModule.forRoot({ rootUrl: 'https://localhost:44323' }),
   ],
   providers: [],
   bootstrap: [AppComponent]

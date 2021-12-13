@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit {
 
   changeMode()
   {
-    this.basicService.basicManualModeChangeGet();
+    this.basicService.getBasicManualModeChange();
   }
   saveModeChangeHours()
   {

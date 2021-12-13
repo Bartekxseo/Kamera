@@ -1,9 +1,8 @@
 /* tslint:disable */
-/* eslint-disable */
 export interface CredentialsModel {
-  ipAdress?: null | string;
-  nightModeEnd?: null | string;
-  nightModeStart?: null | string;
-  password?: null | string;
-  username?: null | string;
+  ipAdress?: string;
+  nightModeEnd?: string;
+  nightModeStart?: string;
+  password?: string;
+  username?: string;
 }
