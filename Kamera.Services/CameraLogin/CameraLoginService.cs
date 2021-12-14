@@ -38,7 +38,7 @@ namespace Camera.Services.CameraLogin
             if(JsonList==null)
             {
                 JsonList = new List<CredentialsModel>();
-                credentials.id = 1;
+                credentials.id = 0;
             }
             else
             {
