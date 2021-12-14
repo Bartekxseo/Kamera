@@ -28,21 +28,6 @@ namespace Camera.Api.Controllers
             cameraModeChanger = new CameraModeChange(_rootPath);
             cameraLoginService = new CameraLoginService(_rootPath);
         }
-        [HttpGet("updateTime")]
-        public void updateTime(string time)
-        {
-            try
-            {
-                time = time.Split(' ').First();
-                time = time.Remove(time.Length - 3,3);
-                cameraModeChanger.updateTime(time).GetAwaiter().GetResult();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("", ex);
-                throw new Exception("", ex);
-            }
-        }
         [HttpGet("manualModeChange")]
         public void manualModeChange(int id)
         {

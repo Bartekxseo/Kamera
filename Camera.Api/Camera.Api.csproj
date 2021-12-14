@@ -13,4 +13,16 @@
     <ProjectReference Include="..\Kamera.Services\Camera.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="credentials\credentials.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="requests\daymode.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="requests\nightmode.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
