@@ -8,14 +8,23 @@
   <button mat-raised-button (click)="subbmit()" color="primary" *ngIf="!needUser">
     Zaloguj
   </button>
+  <button mat-raised-button (click)="removeIp()" color="primary" *ngIf="!needUser">
+    Usuń podane Ip
+  </button>
 </div>
-<mat-form-field appearance="fill" *ngIf="needUser">
+<mat-form-field appearance="fill" style="padding: 5px;" *ngIf="needUser">
   <mat-label>Podaj użytkownika</mat-label>
-  <input matInput #input type="text" placeholder="Np. user" style="color:white" [(ngModel)]="user" >
+  <input matInput #input [type]="hide ? 'password' : 'text'" placeholder="Np. user" style="color:white" [(ngModel)]="user" required="true">
+  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
 </mat-form-field>
-<mat-form-field appearance="fill" *ngIf="needUser">
+<mat-form-field appearance="fill" style="padding: 5px;" *ngIf="needUser">
   <mat-label>Podaj hasło</mat-label>
-  <input matInput #input type="text" placeholder="Np. P@ssword" style="color:white" [(ngModel)]="password">
+  <input matInput #input [type]="hide ? 'password' : 'text'" placeholder="Np. P@ssword" style="color:white" [(ngModel)]="password" required="true">
+  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
 </mat-form-field>
 <div style="padding: 10px;">
   <button mat-raised-button (click)="addNewIp()" color="primary" *ngIf="needUser">

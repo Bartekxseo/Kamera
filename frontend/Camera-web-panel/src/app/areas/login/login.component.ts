@@ -13,28 +13,30 @@ export class LoginComponent implements OnInit {
   needUser:boolean=false;
   user:string=""
   password:string=""
+  hide:boolean=true;
   constructor(private basicService:BasicService, private router:Router, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
   }
   subbmit()
   {
+    if(this.ip!="")
+    {
+      this.basicService.postBasicFindCredentialsByIp(this.ip).subscribe(x=> {
+        if(x.password!="" && x.username!="")
+        {
+          let url = '../settings/' + x.id?.toString();
+          this.router.navigate([url],{relativeTo: this.route})
+        }
+        else
+        {
+          this.needUser=!this.needUser
+          this.user=x.username ?? ""
+          this.password=x.password ?? ""
+        }
 
-    this.basicService.postBasicFindCredentialsByIp(this.ip).subscribe(x=> {
-      if(x.password!="" && x.username!="")
-      {
-        let url = '../settings/' + x.id?.toString();
-        this.router.navigate([url],{relativeTo: this.route})
-      }
-      else
-      {
-        this.needUser=!this.needUser
-        this.user=x.username ?? ""
-        this.password=x.password ?? ""
-      }
-
-    })
-
+      })
+    }
   }
 
   addNewIp()
@@ -49,6 +51,15 @@ export class LoginComponent implements OnInit {
           this.router.navigate([url],{relativeTo: this.route})
         });
       });
+    }
+  }
+
+  removeIp()
+  {
+    if(this.ip!="")
+    {
+      this.basicService.deleteBasicDeleteCredentials(this.ip).subscribe()
+      this.ip="";
     }
   }
 }

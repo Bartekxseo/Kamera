@@ -1,3 +1,4 @@
+using Camera.Api.TimeService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,7 @@ namespace Camera.Api
                 });
             });
             services.AddControllers();
+            services.AddHostedService<Time>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Camera.Api", Version = "v1" });
@@ -59,7 +61,6 @@ namespace Camera.Api
 
             app.UseRouting();
 
-            
 
             app.UseAuthorization();
 

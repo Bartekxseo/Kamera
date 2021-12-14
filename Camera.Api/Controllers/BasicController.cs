@@ -136,5 +136,18 @@ namespace Camera.Api.Controllers
                 throw new Exception("", ex);
             }
         }
+        [HttpDelete("deleteCredentials")]
+        public void deleteCredentials(string ip)
+        {
+            try
+            {
+                cameraLoginService.deleteCredentials(ip);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
+                throw new Exception("", ex);
+            }
+        }
     }
 }

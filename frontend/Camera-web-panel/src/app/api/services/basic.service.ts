@@ -22,6 +22,7 @@ class BasicService extends __BaseService {
   static readonly postBasicFindCredentialsByIdPath = '/Basic/findCredentialsById';
   static readonly postBasicUpdateHoursPath = '/Basic/updateHours';
   static readonly postBasicUpdateCredentialsPath = '/Basic/updateCredentials';
+  static readonly deleteBasicDeleteCredentialsPath = '/Basic/deleteCredentials';
 
   constructor(
     config: __Configuration,
@@ -374,6 +375,40 @@ class BasicService extends __BaseService {
    */
   postBasicUpdateCredentials(body?: CredentialsModel): __Observable<null> {
     return this.postBasicUpdateCredentialsResponse(body).pipe(
+      __map(_r => _r.body as null)
+    );
+  }
+
+  /**
+   * @param ip undefined
+   */
+  deleteBasicDeleteCredentialsResponse(ip?: string): __Observable<__StrictHttpResponse<null>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    if (ip != null) __params = __params.set('ip', ip.toString());
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `/Basic/deleteCredentials`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<null>;
+      })
+    );
+  }
+  /**
+   * @param ip undefined
+   */
+  deleteBasicDeleteCredentials(ip?: string): __Observable<null> {
+    return this.deleteBasicDeleteCredentialsResponse(ip).pipe(
       __map(_r => _r.body as null)
     );
   }

@@ -81,5 +81,14 @@ namespace Camera.Services.CameraLogin
             var newJson = JsonConvert.SerializeObject(JsonList);
             File.WriteAllText(_rootPath + "/credentials/Credentials.json", newJson);
         }
+        public void deleteCredentials(string ip)
+        {
+            var JsonFile = File.ReadAllText(_rootPath + "/credentials/Credentials.json");
+            var JsonList = JsonConvert.DeserializeObject<List<CredentialsModel>>(JsonFile);
+            var Credentials = JsonList.Where(x => x.ipAdress == ip).FirstOrDefault() ?? new CredentialsModel();
+            JsonList.Remove(Credentials);
+            var newJson = JsonConvert.SerializeObject(JsonList);
+            File.WriteAllText(_rootPath + "/credentials/Credentials.json", newJson);
+        }
     }
 }

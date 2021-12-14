@@ -12,11 +12,6 @@ export class AppComponent implements OnInit {
 
   rxTime = new Date();
   subscription!: Subscription;
-  interval:any;
-  constructor(basicService:BasicService ){
-    this.interval = setInterval(()=> {
-    basicService.getBasicUpdateTime(this.rxTime.toTimeString()).subscribe();
-  },60*1000)}
   ngOnInit(): void {
     this.subscription = timer(0, 1000)
     .pipe(

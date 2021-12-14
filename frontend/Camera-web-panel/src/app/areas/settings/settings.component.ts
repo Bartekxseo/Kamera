@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BasicService } from 'src/app/api/services';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { CredentialsModel } from 'src/app/api/models';
 
@@ -17,7 +17,8 @@ export class SettingsComponent implements OnInit {
   stop:string| undefined=""
   currentlyOn:boolean=false;
   interval:any;
-  constructor(private basicService:BasicService, private location:Location, private route:ActivatedRoute) {
+  hide:boolean=true;
+  constructor(private basicService:BasicService, private location:Location, private route:ActivatedRoute, private router:Router) {
     this.interval = setInterval(()=> {
       this.UpdateMode()
     },60*1000)
@@ -52,5 +53,9 @@ export class SettingsComponent implements OnInit {
   {
     let creds:CredentialsModel = {username:this.user,password:this.password,id:this.id}
     this.basicService.postBasicUpdateCredentials(creds).subscribe();
+  }
+  goBack()
+  {
+    this.router.navigate(['../..'],{relativeTo: this.route})
   }
 }

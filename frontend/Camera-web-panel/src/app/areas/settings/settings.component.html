@@ -3,7 +3,7 @@
     <div style="color:white" *ngIf="!currentlyOn">Aktualny Tryb:Dzienny</div>
     <div style="color:white" *ngIf="currentlyOn">Aktualny Tryb:Nocny</div>
   <button mat-raised-button (click)="changeMode()" color="primary">
-    Click!
+    Zmień tryb kamery
   </button>
 </div>
 <mat-form-field appearance="fill" style="padding: 5px;">
@@ -16,20 +16,31 @@
 </mat-form-field>
 <div style="padding: 10px;">
   <button mat-raised-button (click)="saveModeChangeHours()" color="primary">
-    Save!
+    Zapisz zmiany
   </button>
 </div>
 <mat-form-field appearance="fill" style="padding: 5px;">
   <mat-label>Podaj użytkownika</mat-label>
-  <input matInput #input type="text" placeholder="Np. user" style="color:white" [(ngModel)]="user" required="true">
+  <input matInput #input [type]="hide ? 'password' : 'text'" placeholder="Np. user" style="color:white" [(ngModel)]="user" required="true">
+  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
 </mat-form-field>
 <mat-form-field appearance="fill" style="padding: 5px;">
   <mat-label>Podaj hasło</mat-label>
-  <input matInput #input type="text" placeholder="Np. P@ssword" style="color:white" [(ngModel)]="password" required="true">
+  <input matInput #input [type]="hide ? 'password' : 'text'" placeholder="Np. P@ssword" style="color:white" [(ngModel)]="password" required="true">
+  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
 </mat-form-field>
 <div style="padding: 10px;">
   <button mat-raised-button (click)="saveUseraAndPass()" color="primary">
-    Save!
+    Zapisz zmiany
+  </button>
+</div>
+<div style="padding: 10px;">
+  <button mat-raised-button (click)="goBack()" color="primary">
+    Wróć
   </button>
 </div>
 </div>
