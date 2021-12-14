@@ -34,13 +34,6 @@ namespace Camera.Services.CameraModeChange
             _path = rootPath;
             cameraLogin = new CameraLoginService(_path);
         }
-        public void fillVariables(string user, string password, string host)
-        {
-            _user = user;
-            _password = password;
-            _host = "http://" + host;
-            cameraClient = new CameraClient(_host, _user, _password);
-        }
         private void fillCredentials(CredentialsModel model)
         {
             _user = model.username;
