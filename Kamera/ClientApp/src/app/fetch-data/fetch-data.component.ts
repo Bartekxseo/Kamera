@@ -7,9 +7,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FetchDataComponent {
   public forecasts: WeatherForecast[];
-
+  http: HttpClient
+  @Inject('BASE_URL') baseUrl: string
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
+    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast/manualModeChange').subscribe(result => {
+      this.forecasts = result;
+    }, error => console.error(error));
+  }
+
+  public ChangeMode()
+  {
+    this.http.get<WeatherForecast[]>(this.baseUrl + 'weatherforecast/manualModeChange').subscribe(result => {
       this.forecasts = result;
     }, error => console.error(error));
   }

@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Camera.Services.CameraModeChange;
+using Camera.Services.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Camera.Services.CameraLogin;
 
 namespace Kamera.Controllers
 {
@@ -11,29 +15,47 @@ namespace Kamera.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        readonly IHostingEnvironment environment;
+        private string _rootPath;
+        private CameraModeChange cameraModeChanger;
+        private CameraLoginService cameraLoginService;
+        public WeatherForecastController(ILogger<WeatherForecastController> logger,IHostingEnvironment environment)
         {
             _logger = logger;
+            this.environment = environment;
+            _rootPath = environment.ContentRootPath;
+            cameraModeChanger = new CameraModeChange(_rootPath);
+            cameraModeChanger.fillVariables("user", "user", "http://192.168.1.25/");
+            cameraLoginService = new CameraLoginService(_rootPath);
         }
-
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("manualModeChange")]
+        public void manualModeChange()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            cameraModeChanger.changeMode().GetAwaiter().GetResult();
+        }
+        [HttpGet("putIntoNightMode")]
+        public void putIntoNightMode()
+        {
+            cameraModeChanger.putIntoNightMode().GetAwaiter().GetResult();
+        }
+        [HttpGet("putIntoDayMode")]
+        public void putIntoDayMode()
+        {
+            cameraModeChanger.putIntoDayMode().GetAwaiter().GetResult();
+        }
+        [HttpGet("findCredentialsByIp")]
+        public CredentialsModel findCredentialsByIp(string ip)
+        {
+            try
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                return cameraLoginService.findCredentials(ip);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("", ex);
+                throw new Exception("",ex);
+            }
         }
     }
 }

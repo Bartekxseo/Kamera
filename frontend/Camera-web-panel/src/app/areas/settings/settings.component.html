@@ -1,0 +1,47 @@
+<div style="display: block; text-align: center; width: 100%; padding-top: 5vw;">
+  <div style="padding: 10px;">
+    <div style="color:white" *ngIf="!currentlyOn">Aktualny Tryb:Dzienny</div>
+    <div style="color:white" *ngIf="currentlyOn">Aktualny Tryb:Nocny</div>
+  <button mat-raised-button (click)="changeMode()" color="primary">
+    Zmień tryb kamery
+  </button>
+</div>
+<mat-form-field appearance="fill" style="padding: 5px;">
+  <mat-label>Podaj godzinę włączenia trybu nocnego</mat-label>
+  <input matInput #input type="text" placeholder="10:10" style="color:white" [(ngModel)]="start" required="true">
+</mat-form-field>
+<mat-form-field appearance="fill" style="padding: 5px;">
+  <mat-label>Podaj godzine wyłączenia trybu nocnego</mat-label>
+  <input matInput #input type="text" placeholder="10:10" style="color:white" [(ngModel)]="stop" required="true">
+</mat-form-field>
+<div style="padding: 10px;">
+  <button mat-raised-button (click)="saveModeChangeHours()" color="primary">
+    Zapisz zmiany
+  </button>
+</div>
+<mat-form-field appearance="fill" style="padding: 5px;">
+  <mat-label>Podaj użytkownika</mat-label>
+  <input matInput #input [type]="hide ? 'password' : 'text'" placeholder="Np. user" style="color:white" [(ngModel)]="user" required="true">
+  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
+</mat-form-field>
+<mat-form-field appearance="fill" style="padding: 5px;">
+  <mat-label>Podaj hasło</mat-label>
+  <input matInput #input [type]="hide ? 'password' : 'text'" placeholder="Np. P@ssword" style="color:white" [(ngModel)]="password" required="true">
+  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
+</mat-form-field>
+<div style="padding: 10px;">
+  <button mat-raised-button (click)="saveUseraAndPass()" color="primary">
+    Zapisz zmiany
+  </button>
+</div>
+<div style="padding: 10px;">
+  <button mat-raised-button (click)="goBack()" color="primary">
+    Wróć
+  </button>
+</div>
+</div>
+

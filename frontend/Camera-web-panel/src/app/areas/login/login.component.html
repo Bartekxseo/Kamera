@@ -1,0 +1,35 @@
+<div style="display: block; text-align: center; width: 100%; padding-top: 5vw;">
+  <mat-form-field appearance="fill" hintLabel="Maksymalnie 15 znaków" >
+    <mat-label>Wpisz IP kamery</mat-label>
+    <input matInput [disabled]="needUser" #input type="text" placeholder="XXX.XXX.XXX.XXX" maxlength="15" style="color:white" [(ngModel)]="ip">
+    <mat-hint align="end">{{input.value?.length || 0}}/15</mat-hint>
+  </mat-form-field>
+  <div style="padding: 10px;">
+  <button mat-raised-button (click)="subbmit()" color="primary" *ngIf="!needUser">
+    Zaloguj
+  </button>
+  <button mat-raised-button (click)="removeIp()" color="primary" *ngIf="!needUser">
+    Usuń podane Ip
+  </button>
+</div>
+<mat-form-field appearance="fill" style="padding: 5px;" *ngIf="needUser">
+  <mat-label>Podaj użytkownika</mat-label>
+  <input matInput #input [type]="hide ? 'password' : 'text'" placeholder="Np. user" style="color:white" [(ngModel)]="user" required="true">
+  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
+</mat-form-field>
+<mat-form-field appearance="fill" style="padding: 5px;" *ngIf="needUser">
+  <mat-label>Podaj hasło</mat-label>
+  <input matInput #input [type]="hide ? 'password' : 'text'" placeholder="Np. P@ssword" style="color:white" [(ngModel)]="password" required="true">
+  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
+</mat-form-field>
+<div style="padding: 10px;">
+  <button mat-raised-button (click)="addNewIp()" color="primary" *ngIf="needUser">
+    Dodaj nowe Ip i zaloguj
+  </button>
+</div>
+</div>
+

@@ -1,0 +1,13 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<div style="background-color: black; height: 100vh;">
+  <mat-toolbar color="primary">
+  <span style="display: block; text-align: center; width: 100%;">
+    Panel harmonogramowania kamery
+    <div>{{ rxTime | date: 'HH:mm:ss' }}</div>
+  </span>
+
+</mat-toolbar>
+  <router-outlet></router-outlet>
+</div>
+
